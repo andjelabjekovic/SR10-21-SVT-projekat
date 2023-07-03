@@ -1,0 +1,28 @@
+<mat-card elevation="5" fxFlex class="content">
+
+    <mat-card-title>
+        <h2>{{title}}</h2>
+    </mat-card-title>
+
+    <mat-card-content>
+        <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
+        <form (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form">
+          
+          
+            <mat-form-field>
+                <label>Content: </label>
+                <input formControlName="content" matInput required>
+            </mat-form-field>
+          
+                
+            <br>
+            <button [disabled]="!form.valid" color="primary" mat-raised-button type="submit">Create post</button>
+            <button color="primary" mat-raised-button routerLink="/" >Go Back</button>
+        </form>
+        <br>
+        <mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
+        <br>
+        <hr>
+    </mat-card-content>
+    
+</mat-card>

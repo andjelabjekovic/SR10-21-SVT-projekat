@@ -9,6 +9,8 @@ export class ConfigService {
   private _user_url = this._api_url + '/users';
 
   private _login_url = this._user_url + '/login';
+  private _post_url = this._api_url + '/posts';
+  private _group_url = this._api_url + '/groups';
 
   get login_url(): string {
     return this._login_url;
@@ -31,12 +33,15 @@ export class ConfigService {
   get club_url(): string {
     return this._club_url;
   }
-  
-  //TODO: implementirati :)
-  private _signup_url = this._user_url + '/signup';
+  get post_url(): string{
+    return this._post_url;
+  }
 
+  get group_url(): string{
+    return this._group_url;
+  }
   get signup_url(): string {
-    return this._signup_url;
+    return this._user_url;
   }
 
 }

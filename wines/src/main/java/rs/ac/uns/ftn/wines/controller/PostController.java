@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.wines.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.wines.domain.Post;
 import rs.ac.uns.ftn.wines.dto.PostDTO;
+import rs.ac.uns.ftn.wines.dto.PostResponseDTO;
 import rs.ac.uns.ftn.wines.service.interfaces.PostService;
 
 
@@ -30,11 +32,15 @@ public class PostController {
 
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Post>> getAll() {
+	public ResponseEntity<List<PostResponseDTO>> getAll() {
 
 		List<Post> posts = this.postService.getAll();
+		ArrayList<PostResponseDTO> dtos = new ArrayList<PostResponseDTO>();
+		for(Post post : posts) {
+			dtos.add(new PostResponseDTO(post));
+		}
 
-		return new ResponseEntity<>(posts, HttpStatus.OK);
+		return new ResponseEntity<List<PostResponseDTO>>(dtos, HttpStatus.OK);
 	}
 	
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")

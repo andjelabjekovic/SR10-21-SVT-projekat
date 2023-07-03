@@ -24,6 +24,7 @@ import rs.ac.uns.ftn.wines.domain.User;
 import rs.ac.uns.ftn.wines.dto.ChangePasswordDTO;
 import rs.ac.uns.ftn.wines.dto.LoginDTO;
 import rs.ac.uns.ftn.wines.dto.RegistrationDTO;
+import rs.ac.uns.ftn.wines.dto.TokenDTO;
 import rs.ac.uns.ftn.wines.security.TokenUtils;
 import rs.ac.uns.ftn.wines.service.interfaces.UserService;
 
@@ -58,7 +59,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO userDto) {
+    public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO userDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword());
         Authentication authentication;
@@ -71,7 +72,7 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         try {
             UserDetails userDetails = userDetailsService.loadUserByUsername(userDto.getUsername());
-            return ResponseEntity.ok(tokenUtils.generateToken(userDetails));
+            return ResponseEntity.ok(new TokenDTO(tokenUtils.generateToken(userDetails)));
         } catch (UsernameNotFoundException e) {
             return ResponseEntity.notFound().build();
         }

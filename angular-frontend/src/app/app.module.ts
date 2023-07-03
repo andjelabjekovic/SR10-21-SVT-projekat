@@ -11,6 +11,11 @@ import { HeaderComponent } from './header/header.component';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { TablePostComponent } from './tablePost/table.post';
+import { TableGroupComponent } from './tableGroup/table.group'; //ovo
+import { GroupListComponent } from './group-list/group-list.component';
+import { CreatePostComponent } from './create-post-component/create-post.component';
 
 import {AngularMaterialModule} from './angular-material/angular-material.module';
 
@@ -21,6 +26,8 @@ import {ClubService} from './service/club.service';
 import {AuthService} from './service/auth.service';
 import {UserService} from './service/user.service';
 import {ConfigService} from './service/config.service';
+import { PostService } from './service/post.service';
+import { GroupService } from './service/group.service'; //ovo
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
@@ -33,7 +40,12 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
     HeaderComponent,
     UserMenuComponent,
     LoginComponent,
-    SignUpComponent,
+    SignUpComponent, 
+    PostListComponent,
+    TablePostComponent,
+    TableGroupComponent,
+    GroupListComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,
@@ -51,10 +63,13 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
       multi: true
     },
     ClubService,
+    PostService,
+    GroupService, //ovo
     AuthService,
     ApiService,
     UserService,
     ConfigService,
+    
   ],
   bootstrap: [AppComponent]
 })

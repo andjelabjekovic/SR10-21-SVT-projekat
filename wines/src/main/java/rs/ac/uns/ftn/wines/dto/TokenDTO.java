@@ -2,21 +2,24 @@ package rs.ac.uns.ftn.wines.dto;
 
 public class TokenDTO {
 
-    private String token;
+	private String accessToken;
 
-    public TokenDTO() {}
+	public TokenDTO() {
+	}
 
-    public TokenDTO(String token) {
-        this.token = token;
-    }
+	public TokenDTO(String accessTokent) {
+		super();
+		this.accessToken = accessTokent;
+	}
 
-    public String getToken() {
-        return token;
-    }
+	public String getAccessToken() {
+		return accessToken;
+	}
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
 
+	
 
 }

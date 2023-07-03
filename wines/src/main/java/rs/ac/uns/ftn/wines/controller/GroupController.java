@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.wines.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.wines.domain.Group;
+import rs.ac.uns.ftn.wines.domain.Post;
 import rs.ac.uns.ftn.wines.dto.GroupDTO;
+import rs.ac.uns.ftn.wines.dto.GroupResponseDTO;
+import rs.ac.uns.ftn.wines.dto.PostResponseDTO;
 import rs.ac.uns.ftn.wines.service.interfaces.GroupService;
 
 @RestController
@@ -27,13 +31,16 @@ public class GroupController {
 		this.groupService = groupService;
 	}
 
-	@PreAuthorize("hasAnyRole('USER',' ADMIN')")
+	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Group>> getAll() {
+	public ResponseEntity<List<GroupResponseDTO>> getAll() {
 
 		List<Group> groups = this.groupService.getAll();
-
-		return new ResponseEntity<>(groups, HttpStatus.OK);
+		ArrayList<GroupResponseDTO> dtos = new ArrayList<GroupResponseDTO>();
+		for(Group group : groups) {
+			dtos.add(new GroupResponseDTO(group));
+		}
+		return new ResponseEntity<List<GroupResponseDTO>>(dtos, HttpStatus.OK);
 	}
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE )

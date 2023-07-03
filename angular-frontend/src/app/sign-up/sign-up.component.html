@@ -17,15 +17,23 @@
             </mat-form-field>
             <mat-form-field>
                 <label>First Name: </label>
-                <input formControlName="firstname" matInput>
+                <input formControlName="firstName" matInput>
             </mat-form-field>
             <mat-form-field>
                 <label>Last Name: </label>
-                <input formControlName="lastname" matInput>
+                <input formControlName="lastName" matInput>
             </mat-form-field>
             <mat-form-field>
                 <label>Email: </label>
                 <input formControlName="email" matInput>
+            </mat-form-field>
+            <mat-form-field>
+                <label>Display name: </label>
+                <input formControlName="displayName" matInput>
+            </mat-form-field>
+            <mat-form-field>
+                <label>Description: </label>
+                <input formControlName="description" matInput>
             </mat-form-field>
             <button [disabled]="!form.valid" color="primary" mat-raised-button type="submit">Sign up</button>
             <br>

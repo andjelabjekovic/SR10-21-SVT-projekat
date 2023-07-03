@@ -20,7 +20,8 @@ export class ApiService {
 
   headers = new HttpHeaders({
     'Accept': 'application/json',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + localStorage.getItem('jwt')
   });
 
   constructor(private http: HttpClient) { }
