@@ -31,6 +31,12 @@ import { GroupService } from './service/group.service'; //ovo
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
+import { CreateGroupComponent } from './create-group-component/create-group.component';
+import { DetailedPostComponent } from './detailed-post/detailed-post.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { DetailedGroupComponent } from './detailed-group/detailed-group.component';
+import { MyGroupsComponent } from './my-groups/my-groups.component';
+import { CreateCommentComponentComponent } from './create-comment-component/create-comment-component.component';
 
 @NgModule({
   declarations: [
@@ -43,9 +49,15 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
     SignUpComponent, 
     PostListComponent,
     TablePostComponent,
-    TableGroupComponent,
+    TableGroupComponent, 
     GroupListComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    CreateGroupComponent,
+    DetailedPostComponent,
+    DetailedGroupComponent,
+    MyProfileComponent,
+    MyGroupsComponent,
+    CreateCommentComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +80,7 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
     AuthService,
     ApiService,
     UserService,
-    ConfigService,
+    ConfigService
     
   ],
   bootstrap: [AppComponent]

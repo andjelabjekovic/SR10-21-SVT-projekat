@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.wines.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,20 +60,21 @@ public class ReactionServiceImpl implements ReactionService {
 	}
 
 	public Reaction add(ReactionDTO dto) {
+		int postId = dto.getPostId();
+		if (postId != -1) {
+			return createPostReaction(dto);
+
+		}
+		return createCommentReaction(dto);
+		
+		
+	}
+	public Reaction createPostReaction(ReactionDTO dto) {
 		LocalDate creationDate = LocalDate.now();
 		int postId = dto.getPostId();
 		Post post = null;
-		if (postId != -1) {
-			Optional<Post> postResponse = postRepository.findById(postId);
-			post = postResponse.get();
-
-		}
-		int commentId = dto.getCommentId();
-		Comment comment = null;
-		if (commentId != -1) {
-			Optional<Comment> commentResponse = commentRepository.findById(commentId);
-			comment = commentResponse.get();
-		}
+		Optional<Post> postResponse = postRepository.findById(postId);
+		post = postResponse.get();
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
@@ -81,10 +83,61 @@ public class ReactionServiceImpl implements ReactionService {
 			return null;
 		}
 		User user = userOpt.get();
-
-		Reaction reaction = new Reaction(0, dto.getType(), creationDate, post, user, comment);
-		reaction = reactionRepository.save(reaction);
-		return reaction;
+		
+		List<Reaction> reactionsFound = reactionRepository.getAllReactionsForPostAndUser(postId, user.getId());
+		if(reactionsFound.size() == 0) {
+			Reaction reaction = new Reaction(0, dto.getType(), creationDate, post, user, null);
+			reaction = reactionRepository.save(reaction);
+			return reaction;
+		}else if(reactionsFound.size() > 1) {
+			return null;
+		}
+		Reaction reactionFound = reactionsFound.get(0);
+		if(dto.getType() != reactionFound.getType()) {
+			reactionFound.setType(dto.getType());
+			reactionFound = reactionRepository.save(reactionFound);
+			return reactionFound;
+		}
+		reactionRepository.delete(reactionFound);
+		return reactionFound;
+	}
+	
+	public Reaction createCommentReaction(ReactionDTO dto) {
+		LocalDate creationDate = LocalDate.now();
+		int commentId = dto.getCommentId();
+		
+		Optional<Comment> commentResponse = commentRepository.findById(commentId);
+		Comment comment = commentResponse.get();
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Optional<User> userOpt = userRepository.findByUsername(username);
+		if (userOpt.isEmpty()) {
+			return null;
+		}
+		User user = userOpt.get();
+		
+		List<Reaction> reactionsFound = reactionRepository.getAllReactionsForCommentAndUser(commentId, user.getId());
+		if(reactionsFound.size() == 0) {
+			Reaction reaction = new Reaction(0, dto.getType(), creationDate, null, user, comment);
+			reaction = reactionRepository.save(reaction);
+			return reaction;
+		}else if(reactionsFound.size() > 1) {
+			return null;
+		}
+		Reaction reactionFound = reactionsFound.get(0);
+		if(dto.getType() != reactionFound.getType()) {
+			reactionFound.setType(dto.getType());
+			reactionFound = reactionRepository.save(reactionFound);
+			return reactionFound;
+		}
+		reactionRepository.delete(reactionFound);
+		return reactionFound;
+	}
+	//-------------------------------------------------------------------------------------------------
+	@Override
+	public List<Reaction> getReactionsForPost(int id) {
+		return reactionRepository.getAllReactionsForPost(id);
 	}
 
 }

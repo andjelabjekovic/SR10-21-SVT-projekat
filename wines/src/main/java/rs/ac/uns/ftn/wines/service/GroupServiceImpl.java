@@ -15,6 +15,8 @@ import rs.ac.uns.ftn.wines.domain.Post;
 import rs.ac.uns.ftn.wines.domain.User;
 import rs.ac.uns.ftn.wines.dto.GroupDTO;
 import rs.ac.uns.ftn.wines.dto.PostDTO;
+import rs.ac.uns.ftn.wines.dto.UpdateGroupDTO;
+import rs.ac.uns.ftn.wines.dto.UpdatePostDTO;
 import rs.ac.uns.ftn.wines.repository.AdminGroupRepository;
 import rs.ac.uns.ftn.wines.repository.GroupRepository;
 import rs.ac.uns.ftn.wines.repository.UserRepository;
@@ -70,6 +72,31 @@ public class GroupServiceImpl implements GroupService {
 		GroupAdmin groupAdmin = new GroupAdmin(0, user, group);
 		adminGroupRepository.save(groupAdmin);
 		return group;
+	}
+	
+	@Override
+	public Group update(UpdateGroupDTO dto) {
+		Group group = groupRepository.findById(dto.getId()).get();
+		if(group == null) {
+			return null;
+		}
+		group.setName(dto.getName());
+		group.setDescription(dto.getDescription());
+		groupRepository.save(group);
+		return group;
+	}
+	
+	@Override
+	public List<Group> getAllForLogged() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Optional<User> userOpt = userRepository.findByUsername(username);
+		if (userOpt.isEmpty()) {
+			return null;
+		}
+		User user = userOpt.get();
+		
+		return groupRepository.getAllGroupsForUser(user.getId());
 	}
 
 }

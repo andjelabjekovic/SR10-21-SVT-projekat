@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import rs.ac.uns.ftn.wines.domain.GroupAdmin;
+import rs.ac.uns.ftn.wines.domain.Post;
 import rs.ac.uns.ftn.wines.domain.Reaction;
 import rs.ac.uns.ftn.wines.dto.ReactionDTO;
 
@@ -16,5 +17,7 @@ public interface ReactionService {
 	Optional<Reaction> getById(int id);
 
 	Reaction save(Reaction reaction);
+	
+	List<Reaction> getReactionsForPost(int id);
 
 }

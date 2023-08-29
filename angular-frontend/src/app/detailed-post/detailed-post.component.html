@@ -1,0 +1,143 @@
+
+
+<div class="flex-container">
+    <div class="section">
+        <mat-card elevation="5" fxFlex class="content">
+			<mat-card-title>
+				<h2>Update/Delete</h2>
+			</mat-card-title>
+		
+			<mat-card-content>
+				<p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
+				<form (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form">
+				  
+				  
+					<mat-form-field>
+						<label>Content: </label>
+						<input formControlName="content" matInput required>
+					</mat-form-field>
+				  
+						
+					<br>
+					<button [disabled]="!form.valid" color="primary" mat-raised-button type="submit">Update</button>
+					<button type='button' color="primary" mat-raised-button (click) = "onDelete()">Delete</button>
+				</form>
+				<br>
+				<mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
+				<br>
+				<hr>
+			</mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="section">
+        <mat-card elevation="5" fxFlex class="content">
+			<mat-card-content>
+				<mat-card-title>
+					<h2>Create</h2>
+				</mat-card-title>
+		
+				<p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
+				<form (ngSubmit)="onNewComment()" *ngIf="!submitted" [formGroup]="commentForm">
+				  
+				  
+					<mat-form-field>
+						<label>Comment: </label>
+						<input formControlName="newComment" matInput required>
+					</mat-form-field>
+				  
+						
+					<br>
+					<button [disabled]="!form.valid" color="primary" mat-raised-button type="submit">Create comment</button>
+				</form>
+				<br>
+				<mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
+				<br>
+				<hr>
+			</mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+
+
+
+
+    
+
+
+
+<div class="row">
+	<div class="col">
+		<mat-table [dataSource]="commentList" style="table-layout:fixed">
+			<!-- Position Column -->
+			<ng-container matColumnDef="text">
+			  <th mat-header-cell *matHeaderCellDef>Comment</th>
+			  <td class="pointer" mat-cell *matCellDef="let element" (click)="onPostClick(element)">{{element.text}}</td>
+			</ng-container>
+		  
+			<!-- Creation Date -->
+			<ng-container matColumnDef="creationDate">
+			  <th mat-header-cell *matHeaderCellDef>Creation Date</th>
+			  <td class="pointer" mat-cell *matCellDef="let element" (click)="onPostClick(element)">{{element.creationDate}}</td>
+			</ng-container>
+		  
+			<!-- user -->
+			<ng-container matColumnDef="userDisplayName">
+			  <th mat-header-cell *matHeaderCellDef>User</th>
+			  <td class="pointer" mat-cell *matCellDef="let element" (click)="onPostClick(element)">{{element.userDisplayName}}</td>
+			</ng-container>
+
+
+			<!-- like -->
+			<ng-container matColumnDef="like">
+				<th mat-header-cell *matHeaderCellDef>Like</th> 
+				<td mat-cell *matCellDef="let element">
+				<div> 
+					<img (click)="likeComment(element)" class="pointer" src="assets/likeImg.png"> 
+					<div class="hand-map">
+						<div class="hand"></div>
+					</div>		
+				</div>
+				<td>
+			  </ng-container>
+			  	<!--dislike-->
+			  <ng-container matColumnDef="dislike">
+				<th mat-header-cell *matHeaderCellDef>Dislike</th> 
+				<td mat-cell *matCellDef="let element"><div> <img   (click)="dislikeComment(element)" class="pointer" src="assets/dislike.png"> <div class="hand-map">
+					<div class="hand"></div>
+				  </div> </div><td>
+			  </ng-container>
+			  <!--heart-->
+			  <ng-container matColumnDef="heart">
+				<th mat-header-cell *matHeaderCellDef>Heart</th> 
+				<td mat-cell *matCellDef="let element"><div> <img   (click)="heartComment(element)" class="pointer" width="30" height="20" src="assets/heart.png"> <div class="hand-map">
+					<div class="hand"></div>
+				  </div> </div><td> 
+			  </ng-container>
+			  <!-- likesNumber -->
+			<ng-container matColumnDef="likesNumber">
+				<th mat-header-cell *matHeaderCellDef>Likes:</th>
+				<td mat-cell *matCellDef="let element">{{element.likesNumber}}</td>
+			  </ng-container>
+			  
+			  <!-- dislikesNumber -->
+			<ng-container matColumnDef="dislikesNumber">
+				<th mat-header-cell *matHeaderCellDef>Dislikes:</th>
+				<td mat-cell *matCellDef="let element">{{element.dislikesNumber}}</td>
+			  </ng-container>
+			  <!-- numberOfHearts -->
+			<ng-container matColumnDef="heartsNumber">
+				<th mat-header-cell *matHeaderCellDef>Hearts:</th>
+				<td mat-cell *matCellDef="let element">{{element.heartsNumber}}</td>
+			  </ng-container>
+		  
+			<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+			<mat-row
+				*matRowDef="let row; columns: displayedColumns;"
+			></mat-row>
+			
+			
+		</mat-table>
+	</div>
+</div>

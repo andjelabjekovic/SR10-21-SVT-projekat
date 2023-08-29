@@ -7,6 +7,11 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { GroupListComponent } from './group-list/group-list.component';
 import { CreatePostComponent } from './create-post-component/create-post.component';
+import { CreateGroupComponent } from './create-group-component/create-group.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { DetailedPostComponent } from './detailed-post/detailed-post.component';
+import { DetailedGroupComponent } from './detailed-group/detailed-group.component';
+import { MyGroupsComponent } from './my-groups/my-groups.component';
 
 const routes: Routes = [
   {
@@ -33,6 +38,26 @@ const routes: Routes = [
   {
     path: 'createPost',
     component: CreatePostComponent,
+  },
+  {
+    path: 'createGroup',
+    component: CreateGroupComponent,
+  },
+  {
+    path: 'myProfile',
+    component: MyProfileComponent, 
+  },
+  {
+    path: 'myGroups',
+    component: MyGroupsComponent, 
+  },
+  {
+    path: 'detailedPost',
+    component: DetailedPostComponent, 
+  },
+  {
+    path: 'detailedGroup',
+    component: DetailedGroupComponent, 
   },
 ];
 

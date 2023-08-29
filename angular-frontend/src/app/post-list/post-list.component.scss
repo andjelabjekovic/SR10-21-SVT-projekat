@@ -1,0 +1,43 @@
+.col {
+  display:table-header-group;
+  justify-content: center;
+  align-items: center;
+}
+.mat-header-cell{
+  /* Prilagodite veličine po potrebi */
+  padding: 40px;
+  font-size: 14px;
+  text-align: center;
+}
+.mat-cell {
+  /* Prilagodite veličine po potrebi */
+  padding: 30px;
+  font-size: 14px;
+  text-align: center;
+}
+.mat-table {
+  border: 1px solid black; /* Promenite boju i debljinu po potrebi */
+  width: 100%;
+}
+h1 {
+  text-align: center;
+}
+
+.mat-cell img {
+  width: 20px; /* Adjust image width as needed */
+  height: 20px; /* Adjust image height as needed */
+  margin: 0 5px; /* Add margin as needed for spacing */
+}
+
+
+.mat-row {
+  height: 100px; /* Prilagodite visinu redova po potrebi */
+}
+
+img.pointer {
+  cursor: pointer;
+}
+    
+td.pointer {
+  cursor: pointer;
+}

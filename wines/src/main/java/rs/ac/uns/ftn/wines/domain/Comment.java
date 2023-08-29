@@ -45,13 +45,6 @@ public class Comment {
 
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public LocalDate getTimestap() {
 		return timestap;
@@ -60,6 +53,16 @@ public class Comment {
 	public void setTimestap(LocalDate timestap) {
 		this.timestap = timestap;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	
 
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
@@ -73,13 +76,7 @@ public class Comment {
 		this.text = text;
 	}
 
-	public LocalDate getTimestep() {
-		return timestap;
-	}
 
-	public void setTimestep(LocalDate timestap) {
-		this.timestap = timestap;
-	}
 
 	public boolean getIsDeleted() {
 		return isDeleted;

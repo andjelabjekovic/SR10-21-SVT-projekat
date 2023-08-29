@@ -12,7 +12,7 @@ interface DisplayMessage {
 }
 
 @Component({
-  selector: 'app-sign-up',
+  selector: 'app-create-post',
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.scss']
 })
