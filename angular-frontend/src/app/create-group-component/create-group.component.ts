@@ -76,6 +76,7 @@ export class CreateGroupComponent implements OnInit {
       .subscribe(data => {
         console.log(data); 
         
+        this.returnUrl = '/myProfile';
         this.router.navigate([this.returnUrl]);
       },
         error => {

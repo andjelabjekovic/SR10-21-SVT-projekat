@@ -19,3 +19,5 @@ insert into Reaction( type,timestamp,post_id,user_id,comment_id) values ( 2,'11.
 insert into Group_Admin( user_id, group_id) values (2,1)
 insert into Group_Admin( user_id, group_id) values (3,2)
 
+insert into Group_User (group_id, user_id) values (1, 1)
+

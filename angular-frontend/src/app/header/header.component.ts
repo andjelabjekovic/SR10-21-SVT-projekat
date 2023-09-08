@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../service/user.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,18 +9,29 @@ import {UserService} from '../service/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor( private userService: UserService) { }
+  constructor( private userService: UserService, private router: Router) { 
+    
+  }
 
   ngOnInit() {
   }
 
   hasSignedIn() {
-    return !!this.userService.currentUser;
+    return !!localStorage.getItem("jwt");
   }
 
   userName() {
-    const user = this.userService.currentUser;
-    return user.username;
+    return localStorage.getItem("username");
   }
+	onSubmit() {
+		this.router.navigate(["/myProfile"]);
+	}
 
+  onSubmitHome() {
+		this.router.navigate(["/posts"]);
+	}
+
+  onSubmitCreatePost() {
+		this.router.navigate(["/createPost"]);
+	}
 }

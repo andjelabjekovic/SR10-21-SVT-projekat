@@ -86,5 +86,17 @@ export class PostService {
     }));
   }
 
+  changePassword(passwordInfo){
+    const signupHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+    });
+    return this.apiService.post('http://localhost:8080/api/users/changePassword', JSON.stringify(passwordInfo), signupHeaders)
+    .pipe(map(() => {
+      console.log('Sign up success');
+    }));
+  }
+
 
 }

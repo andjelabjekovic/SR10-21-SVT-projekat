@@ -9,14 +9,14 @@ import {UserService} from '../service/user.service';
 })
 export class UserMenuComponent implements OnInit {
 
-  user: any;
+
 
   constructor(
     private authService: AuthService,
     private userService: UserService) { }
 
   ngOnInit() {
-    this.user = this.userService.currentUser;
+    
   }
 
   logout() {

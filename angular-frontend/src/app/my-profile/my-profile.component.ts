@@ -37,11 +37,26 @@ export class MyProfileComponent implements OnInit {
 			}
 		);
 	}
+	onGoBack(){
+		this.router.navigate(["/posts"]);
+	}
+	onChangePassword(){
+		this.router.navigate(["/changePassword"]);
+	}
+	onCreatePost(){
+		this.router.navigate(["/createPost"]);
+	}
+	onCreateGroup(){
+		this.router.navigate(["/createGroup"]);
+	}
 
 	onPostClick(post) {
     
 		localStorage.setItem("clickedPost", JSON.stringify(post));
 		this.router.navigate(["/detailedPost"]);	
 	
+	}
+	onEditProfile(){
+		this.router.navigate(["/editProfile"]);
 	}
 }

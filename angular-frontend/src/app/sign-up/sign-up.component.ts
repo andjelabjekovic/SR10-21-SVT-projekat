@@ -81,8 +81,9 @@ export class SignUpComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.authService.login(this.form.value).subscribe(() => {
-          this.userService.getMyInfo().subscribe();
+          
         });
+        this.returnUrl = '/posts';
         this.router.navigate([this.returnUrl]);
       },
         error => {

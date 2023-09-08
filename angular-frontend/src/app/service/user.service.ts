@@ -3,12 +3,14 @@ import {ApiService} from './api.service';
 import {ConfigService} from './config.service';
 import {map} from 'rxjs/operators';
 
+import { HttpHeaders } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  currentUser;
+  currentUsername;
 
   constructor(
     private apiService: ApiService,
@@ -16,10 +18,9 @@ export class UserService {
   ) {
   }
 
-  getMyInfo() {
-    return this.apiService.get(this.config.whoami_url)
+  getLogged() {
+    return this.apiService.get('http://localhost:8080/api/users/getLogged')
       .pipe(map(user => {
-        this.currentUser = user;
         return user;
       }));
   }
@@ -27,5 +28,19 @@ export class UserService {
   getAll() {
     return this.apiService.get(this.config.users_url);
   }
+
+  updateUser(user){
+    const signupHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+    });
+    return this.apiService.put('http://localhost:8080/api/users', JSON.stringify(user), signupHeaders)
+    .pipe(map(() => {
+      console.log('Update successful');
+    }));
+  }
+
+  
 
 }

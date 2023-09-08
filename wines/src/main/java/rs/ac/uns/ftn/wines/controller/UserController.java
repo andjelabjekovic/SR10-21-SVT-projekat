@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.wines.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,23 +14,26 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.ac.uns.ftn.wines.domain.Post;
 import rs.ac.uns.ftn.wines.domain.User;
 import rs.ac.uns.ftn.wines.dto.ChangePasswordDTO;
 import rs.ac.uns.ftn.wines.dto.LoginDTO;
 import rs.ac.uns.ftn.wines.dto.RegistrationDTO;
 import rs.ac.uns.ftn.wines.dto.TokenDTO;
+import rs.ac.uns.ftn.wines.dto.UserDTO;
 import rs.ac.uns.ftn.wines.security.TokenUtils;
 import rs.ac.uns.ftn.wines.service.interfaces.UserService;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/users")
 public class UserController {
     @Autowired
@@ -98,4 +102,36 @@ public class UserController {
         return new ResponseEntity<String>("Password changed", HttpStatus.OK);
         
     }
+	
+	
+	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PutMapping( produces = MediaType.APPLICATION_JSON_VALUE )
+    public ResponseEntity<UserDTO> update(@RequestBody UserDTO dto) {
+
+		User user = userService.update(dto);
+		if(user == null) {
+			return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+		}
+		UserDTO responseDto = UserDTO.toDTO(user);
+        return new ResponseEntity<UserDTO>(responseDto, HttpStatus.OK);
+    }
+	
+	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @GetMapping( value="/getLogged", produces = MediaType.APPLICATION_JSON_VALUE )
+    public ResponseEntity<UserDTO> getLogged() {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		User user = userService.findByUsername(username);
+		if(user == null) {
+			 return new ResponseEntity<UserDTO>(HttpStatus.OK);
+		}
+		
+		
+		UserDTO responseDto = UserDTO.toDTO(user);
+        return new ResponseEntity<UserDTO>(responseDto, HttpStatus.OK);
+    }
+
+	
+	
 }

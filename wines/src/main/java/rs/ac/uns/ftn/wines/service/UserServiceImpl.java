@@ -8,9 +8,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.wines.domain.Group;
 import rs.ac.uns.ftn.wines.domain.User;
 import rs.ac.uns.ftn.wines.domain.enums.Roles;
 import rs.ac.uns.ftn.wines.dto.RegistrationDTO;
+import rs.ac.uns.ftn.wines.dto.UpdateGroupDTO;
+import rs.ac.uns.ftn.wines.dto.UserDTO;
 import rs.ac.uns.ftn.wines.repository.UserRepository;
 import rs.ac.uns.ftn.wines.service.interfaces.UserService;
 
@@ -68,4 +71,20 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(passwordEncoder.encode(password));
 		userRepository.save(user);
     }
+    
+    @Override
+	public User update(UserDTO dto) {
+		User user = userRepository.findById(dto.getId()).get();
+		if(user == null) {
+			return null;
+		}
+		user.setFirstName(dto.getFirstName());
+		user.setLastName(dto.getLastName());
+		user.setEmail(dto.getEmail());
+		user.setDisplayName(dto.getDisplayName());
+		user.setDescription(dto.getDescription());
+		
+		userRepository.save(user);
+		return user;
+	}
 }

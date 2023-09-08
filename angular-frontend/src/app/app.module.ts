@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CardComponent } from './card/card.component';
-import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { LoginComponent } from './login/login.component';
@@ -37,12 +36,13 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { DetailedGroupComponent } from './detailed-group/detailed-group.component';
 import { MyGroupsComponent } from './my-groups/my-groups.component';
 import { CreateCommentComponentComponent } from './create-comment-component/create-comment-component.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CardComponent,
-    HomeComponent,
     HeaderComponent,
     UserMenuComponent,
     LoginComponent,
@@ -58,6 +58,8 @@ import { CreateCommentComponentComponent } from './create-comment-component/crea
     MyProfileComponent,
     MyGroupsComponent,
     CreateCommentComponentComponent,
+    ChangePasswordComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,

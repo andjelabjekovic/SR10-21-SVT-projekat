@@ -1,14 +1,18 @@
 package rs.ac.uns.ftn.wines.domain;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 @Entity
 @Table(name = "groups")
@@ -28,6 +32,9 @@ public class Group {
 	@Column(nullable = false)
 	private String suspendedReason;
 	
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+	@JoinTable(name="group_user", joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name="user_id", referencedColumnName = "id"))
+	private Set<User> users = new HashSet<User>();
 
 	public Group() {
 	}
@@ -92,5 +99,14 @@ public class Group {
 	public void setSuspendedReason(String suspendedReason) {
 		this.suspendedReason = suspendedReason;
 	}
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+	
 
 }

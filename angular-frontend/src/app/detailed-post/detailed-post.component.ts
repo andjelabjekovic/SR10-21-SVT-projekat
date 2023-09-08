@@ -24,7 +24,7 @@ export class DetailedPostComponent implements OnInit {
   selectedPost: Post;
 
   commentList: Comment[];
-	displayedColumns: string[] = ['text', 'creationDate', 'userDisplayName', 'like', 'dislike', 'heart','likesNumber','dislikesNumber','heartsNumber'];
+	displayedColumns: string[] = ['text', 'creationDate', 'userDisplayName', 'like', 'dislike', 'heart','likesNumber','dislikesNumber','heartsNumber',];
  
 
   returnUrl: string;
@@ -74,14 +74,18 @@ export class DetailedPostComponent implements OnInit {
          
         });
   }
+  onGoBack(){
+    this.router.navigate(["/posts"]);
+  }
+
 
   onDelete() {
   
     this.postService.deletePost(this.selectedPost.id) 
       .subscribe(data => {
         console.log(data); 
-        
-        //this.router.navigate([]);
+        alert('Post deleted succesfuly')
+        this.router.navigate(['/myProfile']);
       },
         error => {
          
@@ -137,8 +141,8 @@ export class DetailedPostComponent implements OnInit {
 	} 
 
   onNewComment() {
-    
-    this.postService.createComment(this.commentForm.value) 
+    const newComment = {"text": this.commentForm.value.newComment, "postId":this.selectedPost.id}
+    this.postService.createComment(newComment) 
       .subscribe(data => {
         console.log(data); 
         this.postService.getCommentsForPost(this.selectedPost.id).subscribe(

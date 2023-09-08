@@ -72,10 +72,15 @@ export class CreatePostComponent implements OnInit {
     this.notification = undefined;
     this.submitted = true;
 
+    if(this.form.value.content === '' || this.form.value.content === null){
+      alert('popunite polja');
+      return;
+    }
+
     this.postService.createPost(this.form.value) 
       .subscribe(data => {
         console.log(data); 
-        
+        this.returnUrl = '/myProfile';
         this.router.navigate([this.returnUrl]);
       },
         error => {

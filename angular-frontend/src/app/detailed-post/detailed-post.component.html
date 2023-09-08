@@ -48,7 +48,7 @@
 				  
 						
 					<br>
-					<button [disabled]="!form.valid" color="primary" mat-raised-button type="submit">Create comment</button>
+					<button [disabled]="!form.valid" color="primary" mat-raised-button type="submit">Publish it</button>
 				</form>
 				<br>
 				<mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
@@ -58,6 +58,9 @@
         </mat-card>
     </div>
 </div>
+<div class="button-container">
+	<button color="primary" mat-raised-button (click)="onGoBack()">Go Back</button>
+  </div>
 
 
 
@@ -131,12 +134,14 @@
 				<th mat-header-cell *matHeaderCellDef>Hearts:</th>
 				<td mat-cell *matCellDef="let element">{{element.heartsNumber}}</td>
 			  </ng-container>
+
+			  
 		  
 			<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 			<mat-row
 				*matRowDef="let row; columns: displayedColumns;"
 			></mat-row>
-			
+
 			
 		</mat-table>
 	</div>

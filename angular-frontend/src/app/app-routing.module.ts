@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { PostListComponent } from './post-list/post-list.component';
@@ -12,13 +11,11 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { DetailedPostComponent } from './detailed-post/detailed-post.component';
 import { DetailedGroupComponent } from './detailed-group/detailed-group.component';
 import { MyGroupsComponent } from './my-groups/my-groups.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent,
-    pathMatch: 'full'
-  },
+ 
   {
     path: 'login',
     component: LoginComponent,
@@ -58,6 +55,16 @@ const routes: Routes = [
   {
     path: 'detailedGroup',
     component: DetailedGroupComponent, 
+  },
+  {
+    path: 'changePassword',
+    component: ChangePasswordComponent,
+   
+  },
+  {
+    path: 'editProfile',
+    component: EditProfileComponent ,
+   
   },
 ];
 

@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Post } from '../model/post.model';
 import { PostService } from '../service/post.service';
-
 import {ActivatedRoute, Router} from '@angular/router';
+
+
 @Component({
 	selector: 'app-post-list',
 	templateUrl: './post-list.component.html',
@@ -12,6 +13,7 @@ export class PostListComponent implements OnInit {
 	postList: Post[];
 	displayedColumns: string[] = ['content', 'creationDate', 'userDisplayName', 'like', 'dislike', 'heart','likesNumber','dislikesNumber','heartsNumber'];
 
+	
 	constructor(
 		private postService: PostService,
 		private router: Router,
@@ -34,6 +36,11 @@ export class PostListComponent implements OnInit {
 		localStorage.setItem("clickedPost", JSON.stringify(post));
 		this.router.navigate(["/detailedPost"]);	
 	}
+
+	onSubmit() {
+		this.router.navigate(["/myProfile"]);
+	}
+	
 	likePost(post){
 		const reaction = {"type": "LIKE", "postId": post.id, "commentId":-1};
 

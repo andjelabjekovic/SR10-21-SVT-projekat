@@ -72,6 +72,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.form.value)
       .subscribe(data => {
+          this.returnUrl = '/posts';
           this.router.navigate([this.returnUrl]);
         },
         error => {
